@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Implementation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <center><h2>Queue Operations</h2></center>
+        <input type="text" id="value" placeholder="Enter value">
+        <button class="button" onclick="enqueue()">Enqueue</button>
+        <button class="button" onclick="dequeue()">Dequeue</button>
+        <button class="button" onclick="isEmpty()">Is Empty?</button>
+        <button class="button" onclick="isFull()">Is Full?</button>
+        <button class="button" onclick="clearQueue()">Clear</button>
+        <button class="button" onclick="printQueue()">Show Queue</button>
+        <button class="button" onclick="printPage()">Print Page</button>
+        
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        class Queue {
+            constructor(size) {
+                this.size = size;
+                this.queue = [];
+            }
+
+            enqueue(value) {
+                if (this.isFull()) {
+                    return "Queue is full";
+                }
+                this.queue.push(value);
+                return "Enqueued: " + value;
+            }
+
+            dequeue() {
+                if (this.isEmpty()) {
+                    return "Queue is empty";
+                }
+                return "Dequeued: " + this.queue.shift();
+            }
+
+            isEmpty() {
+                return this.queue.length === 0;
+            }
+
+            isFull() {
+                return this.queue.length >= this.size;
+            }
+
+            clear() {
+                this.queue = [];
+                return "Queue cleared";
+            }
+
+            print() {
+                return this.queue.length > 0 ? this.queue.join(", ") : "Queue is empty";
+            }
+        }
+
+        const queue = new Queue(5);
+
+        function enqueue() {
+            const value = document.getElementById("value").value;
+            document.getElementById("output").innerText = queue.enqueue(value);
+            document.getElementById("value").value = "";
+        }
+
+        function dequeue() {
+            document.getElementById("output").innerText = queue.dequeue();
+        }
+
+        function isEmpty() {
+            document.getElementById("output").innerText = queue.isEmpty() ? "Queue is empty" : "Queue is not empty";
+        }
+
+        function isFull() {
+            document.getElementById("output").innerText = queue.isFull() ? "Queue is full" : "Queue is not full";
+        }
+
+        function clearQueue() {
+            document.getElementById("output").innerText = queue.clear();
+        }
+
+        function printQueue() {
+            document.getElementById("output").innerText = queue.print();
+        }
+
+        function printPage() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

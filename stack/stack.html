@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Implementation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+   <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="../dashboard.php">Structure Data</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../struktur.php"><i class="bi bi-speedometer2"></i> Struktur Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../about.php"><i class="bi bi-info-circle"></i> About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../login.php"><i class="bi bi-box-arrow-right"></i> Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container-c">
+        <h1>Implementasi Stack dengan JavaScript</h1>
+
+        <div class="stack-controls">
+            <input type="text" id="stackInput" placeholder="Masukkan elemen stack">
+            <button onclick="pushToStack()">Push</button>
+            <button onclick="popFromStack()">Pop</button>
+            <button onclick="peekStack()">Peek</button>
+            <button onclick="clearStack()">Clear</button>
+        </div>
+
+        <div class="stack-display">
+            <h3>Stack saat ini:</h3>
+            <ul id="stackList">
+                <!-- Elemen stack akan muncul di sini -->
+            </ul>
+        </div>
+        <div class="status-message">
+            <p id="status"></p>
+        </div>
+        <a href="index.php" class="btn btn-success">Kembali</a>
+
+    </div>
+
+    <script>
+        // Membuat stack sebagai array
+let stack = [];
+
+// Fungsi untuk menampilkan stack saat ini
+function displayStack() {
+    const stackList = document.getElementById('stackList');
+    stackList.innerHTML = '';  // Clear tampilan
+
+    // Menampilkan setiap elemen stack dari atas ke bawah
+    stack.slice().reverse().forEach(function(item) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        stackList.appendChild(li);
+    });
+}
+
+// Fungsi untuk menambahkan elemen ke stack (Push)
+function pushToStack() {
+    const stackInput = document.getElementById('stackInput');
+    const value = stackInput.value;
+
+    if (value) {
+        stack.push(value);
+        displayStack();
+        stackInput.value = ''; // Reset input field
+        document.getElementById('status').textContent = `Elemen '${value}' berhasil ditambahkan ke stack.`;
+    } else {
+        document.getElementById('status').textContent = 'Masukkan nilai untuk menambah ke stack!';
+    }
+}
+
+// Fungsi untuk menghapus elemen dari stack (Pop)
+function popFromStack() {
+    if (stack.length > 0) {
+        const poppedValue = stack.pop();
+        displayStack();
+        document.getElementById('status').textContent = `Elemen '${poppedValue}' berhasil dihapus dari stack.`;
+    } else {
+        document.getElementById('status').textContent = 'Stack kosong, tidak ada elemen yang bisa dihapus.';
+    }
+}
+
+// Fungsi untuk melihat elemen teratas stack (Peek)
+function peekStack() {
+    if (stack.length > 0) {
+        const topValue = stack[stack.length - 1];
+        document.getElementById('status').textContent = `Elemen teratas stack adalah '${topValue}'.`;
+    } else {
+        document.getElementById('status').textContent = 'Stack kosong.';
+    }
+}
+
+// Fungsi untuk membersihkan seluruh stack (Clear)
+function clearStack() {
+    stack = [];
+    displayStack();
+    document.getElementById('status').textContent = 'Stack telah dibersihkan.';
+}
+
+    </script>
+</body>
+</html>

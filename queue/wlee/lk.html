@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        input, button {
+            margin: 5px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f4f4f4;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Linked List Web</h1>
+        <input type="text" id="inputValue" placeholder="Enter value" />
+        <button onclick="insertNode()">Insert</button>
+        <button onclick="deleteNode()">Delete</button>
+        <h3>Linked List:</h3>
+        <ul id="linkedList"></ul>
+    </div>
+
+    <script>
+        class Node {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        class LinkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            insert(value) {
+                const newNode = new Node(value);
+                if (this.head === null) {
+                    this.head = newNode;
+                } else {
+                    let current = this.head;
+                    while (current.next !== null) {
+                        current = current.next;
+                    }
+                    current.next = newNode;
+                }
+                this.display();
+            }
+
+            delete() {
+                if (this.head !== null) {
+                    if (this.head.next === null) {
+                        this.head = null;
+                    } else {
+                        let current = this.head;
+                        while (current.next.next !== null) {
+                            current = current.next;
+                        }
+                        current.next = null;
+                    }
+                }
+                this.display();
+            }
+
+            display() {
+                const listElement = document.getElementById('linkedList');
+                listElement.innerHTML = '';
+                let current = this.head;
+                while (current !== null) {
+                    const li = document.createElement('li');
+                    li.textContent = current.value;
+                    listElement.appendChild(li);
+                    current = current.next;
+                }
+            }
+        }
+
+        const linkedList = new LinkedList();
+
+        function insertNode() {
+            const value = document.getElementById('inputValue').value;
+            if (value) {
+                linkedList.insert(value);
+                document.getElementById('inputValue').value = '';
+            }
+        }
+
+        function deleteNode() {
+            linkedList.delete();
+        }
+    </script>
+</body>
+</html>
